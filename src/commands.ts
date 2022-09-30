@@ -1,29 +1,37 @@
 import { REST, Routes } from 'discord.js';
 
 require('dotenv').config();
-const { token, CLIENT_ID } = process.env;
+const { DISCORD_TOKEN, CLIENT_ID, prefix } = process.env;
 
-const Commands = () => {
-  const commands = [
-    {
-      name: 'ping',
-      description: 'Replies with Pong!',
-    },
-  ];
+const commands = [
+  {
+    name: 'ping',
+    description: 'Replies with Pong!',
+  },
+  {
+    name: 'beep',
+    description: 'Replies with Boop!',
+  },
+  {
+    name: 'test',
+    description: 'Проверка',
+  },
+];
 
-  const rest = new REST({ version: '10' }).setToken(token);
+const rest = new REST({ version: '10' }).setToken(DISCORD_TOKEN);
 
-  (async () => {
-    try {
-      console.log('Started refreshing application (/) commands.');
+(async () => {
+  try {
+    console.log('Started refreshing application (/) commands.');
 
-      await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
+    await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
 
-      console.log('Successfully reloaded application (/) commands.');
-    } catch (error) {
-      console.error(error);
-    }
-  })();
-}
+    console.log('Successfully reloaded application (/) commands.');
+  } catch (error) {
+    console.error(error);
+  }
+})();
 
-export default Commands;
+
+
+
